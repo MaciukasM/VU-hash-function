@@ -20,6 +20,11 @@ string DarbasSuFailu(string failas)
     return DuomenuHashinimas(duomenys);
 }
 
+string DuomenuHashinimas(string duomenys)
+{
+    return duomenys;
+}
+
 string VartotojoIvedimas()
 {
     string ats;
@@ -47,7 +52,7 @@ string VartotojoIvedimas()
     else 
     {
         cout<<"Iveskite duomenis ranka: ";
-        cin>>duomenys;
+        getline(cin >> ws, duomenys);
         hashas = DuomenuHashinimas(duomenys);
     }
 
