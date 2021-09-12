@@ -6,10 +6,18 @@ bool FailoTikrinimas(string failas)
     return in.good();
 }
 
-string Hashinimas(bool ivedimas, string duomenys)
+string DarbasSuFailu(string failas)
 {
-    if (ivedimas) return "a";
-    else return "b";
+    ifstream in(failas);
+    string eilute;
+    string duomenys;
+
+    while(!in.eof())
+    {
+        getline(in, eilute);
+        duomenys += eilute;
+    }
+    return DuomenuHashinimas(duomenys);
 }
 
 string VartotojoIvedimas()
@@ -34,13 +42,13 @@ string VartotojoIvedimas()
             cout<<"Tokio failo nerasta. Programos darbas baigiamas."<<endl;
             return 0;
         }
-        hashas = Hashinimas(true, failas);
+        hashas = DarbasSuFailu(failas);
     }
     else 
     {
         cout<<"Iveskite duomenis ranka: ";
         cin>>duomenys;
-        hashas = Hashinimas(false, duomenys);
+        hashas = DuomenuHashinimas(duomenys);
     }
 
     return hashas;
