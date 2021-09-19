@@ -22,7 +22,28 @@ string DarbasSuFailu(string failas)
 
 string DuomenuHashinimas(string duomenys)
 {
-    return duomenys;
+    string hash; // cia saugojamas hashas
+    unsigned int temp = 12345; //kintamasis, kuriame laikomas skaicius, kuri vis keisime dauginant is ivairiu skaiciu (is pradziu sudauginsime su simboliu ascii vertemis ir pan.)
+    int ascii = 0; //skaicius gautas is 'temp', kuri naudosim grazinti kokia nors ascii reiksme i hasha
+
+    for(int i = 0; i<duomenys.length(); i++) //input'as keicia pati skaiciu
+    {
+        temp = (temp * (int(duomenys[i])+2))+pow((i+1), 2);
+    }
+
+    string paverstasSkaicius; //vertimui skaiciu i string
+    char simbolis; //char'as kuris eis i hasha (gaunamas is 'ascii' reiksmes)
+
+    //hash'o sudarymas
+    for(int i = 0; i<64; i++)
+    {
+        temp = temp * M_PI;
+        paverstasSkaicius = to_string(temp);
+        ascii = (paverstasSkaicius[1] + paverstasSkaicius[3] + paverstasSkaicius[5] + paverstasSkaicius[7]*i) % 26 + 97; //%26 ir + 97 yra tam, kad gautume ascii reiksmes nuo 97-122
+        simbolis = ascii;
+        hash += simbolis;
+    }
+    return hash;
 }
 
 string VartotojoIvedimas()
