@@ -39,7 +39,8 @@ string DuomenuHashinimas(string duomenys)
     {
         temp = temp * M_PI;
         paverstasSkaicius = to_string(temp);
-        ascii = (paverstasSkaicius[1] + paverstasSkaicius[3] + paverstasSkaicius[5] + paverstasSkaicius[7]*i) % 26 + 97; //%26 ir + 97 yra tam, kad gautume ascii reiksmes nuo 97-122
+        ascii = (paverstasSkaicius[1] + paverstasSkaicius[3] + paverstasSkaicius[5] + paverstasSkaicius[7]*i) % 16 + 48; //gaunam ascii reiksmes 48-63
+        if (ascii>57) ascii += 39; //kad gauti raides a-f
         simbolis = ascii;
         hash += simbolis;
     }
