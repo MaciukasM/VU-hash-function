@@ -1,7 +1,14 @@
 #include "testai.hpp"
 #include "laikas.hpp"
+#include "headeriai.hpp"
 
-void FailoGeneravimas(int ilgis, bool simbolioSkirtumas)
+void TestoPasirinkimas(int pasirinkimas)
+{
+    if(pasirinkimas == 1) VartotojoIvedimas();
+    
+}
+
+/* void FailoGeneravimas(int ilgis, bool simbolioSkirtumas) //might add later
 {
     srand(time(NULL));
 
@@ -30,4 +37,4 @@ void FailoGeneravimas(int ilgis, bool simbolioSkirtumas)
         out<<tekstas;
         out.close();
     }
-}
+} */

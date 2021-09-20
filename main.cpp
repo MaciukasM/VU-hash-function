@@ -1,9 +1,19 @@
 #include "headeriai.hpp"
+#include "testai.hpp"
 
 int main()
 {
-    string hashas = VartotojoIvedimas();
+    int sk;
 
-    cout<<"hash'as: "<<hashas<<endl;
-    cout<<"hash'o ilgis: "<<hashas.length()<<endl;
+    do
+    {
+        cout<<"Iveskite savo pasirinkima ivede skaiciu: "<<endl;
+        cout<<"\n1 - Duomenu ivedimas ir hash'inimas\n2 - " <<endl;
+        cin>>sk;
+    } while (sk<1 && sk>2);
+    
+    TestoPasirinkimas(sk);
+    
+
+    
 }

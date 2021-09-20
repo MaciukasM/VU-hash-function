@@ -8,9 +8,9 @@
 
 using namespace std;
 
-string VartotojoIvedimas();
 bool FailoTikrinimas(string failas);
 string DarbasSuFailu(string failas); 
 string DuomenuHashinimas(string duomenys);
+void VartotojoIvedimas();
 
 #endif

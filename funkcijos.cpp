@@ -47,7 +47,7 @@ string DuomenuHashinimas(string duomenys)
     return hash;
 }
 
-string VartotojoIvedimas()
+void VartotojoIvedimas()
 {
     string ats;
     string failas;
@@ -67,7 +67,7 @@ string VartotojoIvedimas()
         if(!FailoTikrinimas(failas))
         {
             cout<<"Tokio failo nerasta. Programos darbas baigiamas."<<endl;
-            return 0;
+            exit;
         }
         hashas = DarbasSuFailu(failas);
     }
@@ -78,5 +78,6 @@ string VartotojoIvedimas()
         hashas = DuomenuHashinimas(duomenys);
     }
 
-    return hashas;
+    cout<<"hash'as: "<<hashas<<endl;
+    cout<<"hash'o ilgis: "<<hashas.length()<<endl;
 }

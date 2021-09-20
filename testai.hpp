@@ -7,6 +7,7 @@
 
 using namespace std;
 
-void FailoGeneravimas(int ilgis, bool simbolioSkirtumas);
+void TestoPasirinkimas(int pasirinkimas);
+//void FailoGeneravimas(int ilgis, bool simbolioSkirtumas);
 
 #endif
