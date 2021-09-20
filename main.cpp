@@ -4,5 +4,6 @@ int main()
 {
     string hashas = VartotojoIvedimas();
 
-    cout<<hashas<<endl;
+    cout<<"hash'as: "<<hashas<<endl;
+    cout<<"hash'o ilgis: "<<hashas.length()<<endl;
 }

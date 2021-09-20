@@ -1,3 +1,6 @@
+#ifndef HEADERIAI_HPP
+#define HEADERIAI_HPP
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -9,3 +12,5 @@ string VartotojoIvedimas();
 bool FailoTikrinimas(string failas);
 string DarbasSuFailu(string failas); 
 string DuomenuHashinimas(string duomenys);
+
+#endif
