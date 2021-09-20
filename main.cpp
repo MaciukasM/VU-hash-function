@@ -8,7 +8,7 @@ int main()
     do
     {
         cout<<"Iveskite savo pasirinkima ivede skaiciu: "<<endl;
-        cout<<"\n1 - Duomenu ivedimas ir hash'inimas\n2 - " <<endl;
+        cout<<"\n1 - Duomenu ivedimas ir hash'inimas\n2 - failu poru hash'u lyginimas\n" <<endl;
         cin>>sk;
     } while (sk<1 && sk>2);
     

@@ -11,12 +11,14 @@ string DarbasSuFailu(string failas)
     ifstream in(failas);
     string eilute;
     string duomenys;
+    
 
-    while(!in.eof())
+    while(in)
     {
-        getline(in, eilute);
+        getline(in,eilute);
         duomenys += eilute;
     }
+    in.close();
     return DuomenuHashinimas(duomenys);
 }
 
