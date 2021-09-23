@@ -62,11 +62,11 @@ void HashuPoruLyginimas()
     hashas4 = DarbasSuFailu(failas2);
 
     cout<<"\n1000 simboliu failo nr.1 hash'as: "<<hashas1<<endl;
-    cout<<"Tas pats failas perhash'intas: "<<hashas2<<endl;
+    cout<<"Tas pats failas perhash'intas:    "<<hashas2<<endl;
     cout<<"Pirmo failo hash'ai sutampa = "<<boolalpha<<(hashas1 == hashas2)<<endl;
 
     cout<<"\n1000 simboliu failo nr.2 hash'as: "<<hashas3<<endl;
-    cout<<"Tas pats failas perhash'intas: "<<hashas4<<endl;
+    cout<<"Tas pats failas perhash'intas:    "<<hashas4<<endl;
     cout<<"Antro failo hash'ai sutampa = "<<boolalpha<<(hashas3 == hashas4)<<endl;
 
     cout<<"\nSiu failu hashai nesutampa = "<<boolalpha<<(hashas1 != hashas3)<<endl;
