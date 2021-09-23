@@ -4,11 +4,13 @@
 #include <iostream>
 #include <fstream>
 #include <random>
+#include <vector>
 
 using namespace std;
 
 void TestoPasirinkimas(int pasirinkimas);
-void HashuPoruLyginimas();
+void DviejuFailuLyginimas();
+void PoVienaEilute();
 //void FailoGeneravimas(int ilgis, bool simbolioSkirtumas);
 
 #endif

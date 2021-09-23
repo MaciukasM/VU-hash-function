@@ -5,10 +5,11 @@
 void TestoPasirinkimas(int pasirinkimas)
 {
     if(pasirinkimas == 1) VartotojoIvedimas();
-    if(pasirinkimas == 2) HashuPoruLyginimas();
+    if(pasirinkimas == 2) DviejuFailuLyginimas();
+    if(pasirinkimas == 3) PoVienaEilute();
 }
 
-void HashuPoruLyginimas()
+void DviejuFailuLyginimas()
 {
     //4 kintamieji lyginimui
     string hashas1;
@@ -99,6 +100,40 @@ void HashuPoruLyginimas()
     cout<<"\nSiu failu hashai nesutampa = "<<boolalpha<<(hashas1 != hashas3)<<endl;
 
     cout<<"------------------------------------------------------"<<endl;
+}
+
+void PoVienaEilute()
+{
+    cout<<"\nHash'inamas failas 'konstitucija.txt po eilute...'\n"<<endl;
+
+    LaikoMatavimas l;
+    double visasLaikas = 0;
+    string failas1 = "test/konstitucija.txt"; //is kur imsim faila
+    string eilute;
+    vector<string> hashai;
+
+    ifstream in(failas1);
+
+    while(in)
+    {
+        getline(in, eilute);
+
+        l.reset();
+        hashai.push_back(DuomenuHashinimas(eilute));
+        visasLaikas += l.elapsed();
+    }
+
+    cout<<"'"<<failas1<<"' failo hash'avimas uztruko "<<visasLaikas<<" s."<<endl;
+
+    /* for(int i = 0; i<hashai.size()-1; i++) //jei norim hashus paziuret
+    {
+        cout<<i<<" hash'as: "<<hashai[i]<<endl;
+    } */
+}
+
+void HashuPoruLyginimas()
+{
+    
 }
 
 /* void FailoGeneravimas(int ilgis, bool simbolioSkirtumas) //might add later

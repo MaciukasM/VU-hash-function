@@ -28,14 +28,15 @@ string DuomenuHashinimas(string duomenys)
     unsigned int temp = 12345; //kintamasis, kuriame laikomas skaicius, kuri vis keisime dauginant is ivairiu skaiciu (is pradziu sudauginsime su simboliu ascii vertemis ir pan.)
     int ascii = 0; //skaicius gautas is 'temp', kuri naudosim grazinti kokia nors ascii reiksme i hasha
 
-    int sum = 0; //ascii reiksmiu suma (testavimui)
+    unsigned int sum = 0; //ascii reiksmiu suma (testavimui)
     //int s = 10000;
 
     for(int i = 0; i<duomenys.length(); i++) //input'as keicia pati skaiciu
     {
         sum += int(duomenys[i]); //(testavimui)
-        temp = ((temp -(int(duomenys[i])+2)) * (int(duomenys[i])+2)*2)+i+sum;
+        temp = (temp * (int(duomenys[i])+2)*2)+i+sum;
         temp<<2;
+        temp = temp*temp*temp;
 
         //if(i == 1022 || i == 1023 || i == 1024 || i == 1025 || i == 1062 || i == 1063) cout<<"i: "<<i<<" "<<temp<<" "<<int(duomenys[i])+2<<endl;
     }
