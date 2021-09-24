@@ -7,6 +7,7 @@ void TestoPasirinkimas(int pasirinkimas)
     if(pasirinkimas == 1) VartotojoIvedimas();
     if(pasirinkimas == 2) DviejuFailuLyginimas();
     if(pasirinkimas == 3) PoVienaEilute();
+    if(pasirinkimas == 4) HashuPoruLyginimas();
 }
 
 void DviejuFailuLyginimas()
@@ -133,7 +134,35 @@ void PoVienaEilute()
 
 void HashuPoruLyginimas()
 {
-    
+    string failas[4] = { "test/poros10.txt", "test/poros100.txt", "test/poros500.txt", "test/poros1000.txt"};
+    int kolizijos;
+    int visosKolizijos = 0;
+
+    string eilute1;
+    string eilute2;
+    string hashas1;
+    string hashas2;
+
+    for(int i = 0; i<4; i++)
+    {
+        kolizijos = 0;
+        cout<<"\nPradedamas darbas su failu '"<<failas[i]<<"'...\n"<<endl;
+        
+        ifstream in (failas[i]);
+
+        while(in)
+        {
+            getline(in, eilute1);
+            hashas1 = DuomenuHashinimas(eilute1);
+
+            getline(in, eilute2);
+            hashas2 = DuomenuHashinimas(eilute2);
+            if(hashas1 == hashas2 && eilute1 != eilute2) ++kolizijos;
+        }
+        cout<<"Po "<<i+1<<"-ojo failo ("<<failas[i]<<") eiluciu hashavim'o rasta "<<kolizijos<<" koliziju(-os)."<<endl;
+        visosKolizijos+=kolizijos;
+    }
+    cout<<"\nViso rasta "<<visosKolizijos<<" koliziju(-os)."<<endl;
 }
 
 /* void FailoGeneravimas(int ilgis, bool simbolioSkirtumas) //might add later
