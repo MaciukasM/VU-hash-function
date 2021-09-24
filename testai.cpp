@@ -8,6 +8,7 @@ void TestoPasirinkimas(int pasirinkimas)
     if(pasirinkimas == 2) DviejuFailuLyginimas();
     if(pasirinkimas == 3) PoVienaEilute();
     if(pasirinkimas == 4) HashuPoruLyginimas();
+    if(pasirinkimas == 5) ProcentinisSkirtingumas();
 }
 
 void DviejuFailuLyginimas()
@@ -123,6 +124,7 @@ void PoVienaEilute()
         hashai.push_back(DuomenuHashinimas(eilute));
         visasLaikas += l.elapsed();
     }
+    in.close();
 
     cout<<"'"<<failas1<<"' failo hash'avimas uztruko "<<visasLaikas<<" s."<<endl;
 
@@ -134,7 +136,7 @@ void PoVienaEilute()
 
 void HashuPoruLyginimas()
 {
-    string failas[4] = { "test/poros10.txt", "test/poros100.txt", "test/poros500.txt", "test/poros1000.txt"};
+    vector<string> failas = { "test/poros10.txt", "test/poros100.txt", "test/poros500.txt", "test/poros1000.txt"};
     int kolizijos;
     int visosKolizijos = 0;
 
@@ -143,7 +145,7 @@ void HashuPoruLyginimas()
     string hashas1;
     string hashas2;
 
-    for(int i = 0; i<4; i++)
+    for(int i = 0; i<failas.size(); i++)
     {
         kolizijos = 0;
         cout<<"\nPradedamas darbas su failu '"<<failas[i]<<"'...\n"<<endl;
@@ -159,10 +161,150 @@ void HashuPoruLyginimas()
             hashas2 = DuomenuHashinimas(eilute2);
             if(hashas1 == hashas2 && eilute1 != eilute2) ++kolizijos;
         }
+        in.close();
         cout<<"Po "<<i+1<<"-ojo failo ("<<failas[i]<<") eiluciu hashavim'o rasta "<<kolizijos<<" koliziju(-os)."<<endl;
         visosKolizijos+=kolizijos;
     }
     cout<<"\nViso rasta "<<visosKolizijos<<" koliziju(-os)."<<endl;
+}
+
+void PanasausFailoGeneravimas(string failas) //procentiniam skirtingumui failu generavimas (naudojant kitus failus)
+{
+    string output = failas.substr(0, failas.find("."))+"+diff1.txt"; //reikia kad naudojamuose failu pavadinimuose butu tik vienas taskas (antraip turbut neveiks :) ) 
+    ifstream in(failas);
+    ofstream out(output);
+
+    string eilute1;
+    string eilute2;
+
+    while(in)
+    {
+        getline(in, eilute1);
+        eilute2 = eilute1;
+        eilute2[0] = eilute1[0] + 1;
+        out<<eilute1<<endl<<eilute2<<endl;
+    }
+}
+
+void ProcentinisSkirtingumas()
+{
+    string ats;
+    vector<string> failas = { "test/poros10.txt", "test/poros100.txt", "test/poros500.txt", "test/poros1000.txt" };
+    vector<string> naujiFailai = { "test/poros10+diff1.txt", "test/poros100+diff1.txt", "test/poros500+diff1.txt", "test/poros1000+diff1.txt" };
+
+    while(ats!="y" && ats!="n")
+    {
+        cout<<"Ar sugeneruoti failus testavimui (tam bus sukurti nauji modifikuoti failai is koliziju testavimo)? (y/n): ";
+        cin>>ats;
+        if(ats!="y" && ats!="n") cout<<"\nIveskite atsakyma is naujo.\n"<<endl;
+    }
+    if(ats=="y")
+    {
+        for(int i = 0; i<failas.size(); i++)
+        {
+            PanasausFailoGeneravimas(failas[i]);
+            naujiFailai.push_back(failas[i].substr(0, failas[i].find("."))+"+diff1.txt"); //tuo atveju jei naudojami kiti failai ar ju nebuvo ir pan.
+        }
+    }
+
+    string eilute1;
+    string eilute2;
+
+    string hashas1;
+    string hashas2;
+
+    int skirtingiHex = 0;
+    int skirtingiBit = 0;
+    float procentaiHex = 0;
+    float procentaiBit = 0;
+
+    float bitMin = 100;
+    float bitAvg = 0;
+    float bitMax = 0;
+    float bitMinViso = 100;
+    float bitAvgViso = 0;
+    float bitMaxViso = 0;
+
+    float hexMin = 100;
+    float hexAvg = 0;
+    float hexMax = 0;
+    float hexMinViso = 100;
+    float hexAvgViso = 0;
+    float hexMaxViso = 0;
+
+    for(int i = 0; i<naujiFailai.size(); i++)
+    {
+        cout<<"\nPradedamas darbas su failu '"<<naujiFailai[i]<<"'...\n"<<endl;
+        
+        ifstream in (naujiFailai[i]);
+
+        while(in)
+        {
+            getline(in, eilute1);
+            hashas1 = DuomenuHashinimas(eilute1);
+
+            getline(in, eilute2);
+            hashas2 = DuomenuHashinimas(eilute2);
+
+            skirtingiHex = 0;
+            skirtingiBit = 0;
+
+            for(int j = 0; j<64; j++)
+            {
+                if(hashas1[0] != hashas2[0]) ++skirtingiHex;
+
+                bitset<8> b1(hashas1[0]);
+                bitset<8> b2(hashas2[0]);
+
+                skirtingiBit += (b1 xor b2).count();
+            }
+
+            procentaiHex = skirtingiHex / 64.0;
+            procentaiBit = skirtingiBit / 512.0;
+
+            bitMin = min(bitMin, procentaiBit);
+            hexMin = min(hexMin, procentaiHex);
+
+            bitMax = max(bitMax, procentaiBit);
+            hexMax = max(hexMax, procentaiHex);
+
+            bitAvg += procentaiBit;
+            hexAvg += procentaiHex;
+        }
+        in.close();
+        cout<<i+1<<"-ojo failo ("<<failas[i]<<") poru hashavim'o procentiniai 'skirtingumai': "<<endl;
+        cout<<"\nSio failo bit min: "<<bitMin<<"%"<<endl;
+        cout<<"Sio failo bit max: "<<bitMax<<"%"<<endl;
+        cout<<"Sio failo hex min: "<<hexMin<<"%"<<endl;
+        cout<<"Sio failo hex max: "<<hexMax<<"%"<<endl;
+        cout<<"\nSio failo bit avg: "<<bitAvg<<"%"<<endl;
+        cout<<"Sio failo hex avg: "<<hexAvg<<"%"<<endl;
+
+        bitMinViso = min(bitMin, bitMinViso);
+        bitAvgViso += bitAvg;
+        bitMaxViso = max(bitMax, bitMaxViso);
+        hexMinViso = min(hexMin, hexMinViso);
+        hexAvgViso += hexAvg;
+        hexMaxViso = max(hexMax, hexMaxViso);
+
+        bitMin = 100;
+        bitAvg = 0;
+        bitMax = 0;
+        
+        hexMin = 100;
+        hexAvg = 0;
+        hexMax = 0;
+    }
+    bitAvgViso /= 4;
+    hexAvgViso /= 4;
+    cout<<"\n-----------------------------------------------\n"<<endl;
+    cout<<"Galutiniai rezultatai: "<<endl;
+    cout<<"\nBit min: "<<bitMinViso<<"%"<<endl;
+    cout<<"Bit max: "<<bitMaxViso<<"%"<<endl;
+    cout<<"Hex min: "<<hexMinViso<<"%"<<endl;
+    cout<<"Hex max: "<<hexMaxViso<<"%"<<endl;
+    cout<<"\nBit avg: "<<bitAvgViso<<"%"<<endl;
+    cout<<"Hex avg: "<<hexAvgViso<<"%"<<endl;
 }
 
 /* void FailoGeneravimas(int ilgis, bool simbolioSkirtumas) //might add later

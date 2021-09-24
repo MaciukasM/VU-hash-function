@@ -8,9 +8,9 @@ int main()
     do
     {
         cout<<"Iveskite savo pasirinkima ivede skaiciu: "<<endl;
-        cout<<"\n1 - Duomenu ivedimas ir hash'inimas\n2 - Paprastu failu hash'inimas ir lyginimas\n3 - konstitucija.txt hash'avimo matavimas\n4 - Sugeneruotu poru hash'inimas ir lyginimas (atsparumas kolizijoms)" <<endl;
+        cout<<"\n1 - Duomenu ivedimas ir hash'inimas\n2 - Paprastu failu hash'inimas ir lyginimas\n3 - konstitucija.txt hash'avimo matavimas\n4 - Sugeneruotu poru hash'inimas ir lyginimas (atsparumas kolizijoms)\n5 - Hash'u procentinio skirtingumo tikrinimas\n" <<endl;
         cin>>sk;
-    } while (sk<1 && sk>4);
+    } while (sk<1 && sk>5);
     
     TestoPasirinkimas(sk);
     
