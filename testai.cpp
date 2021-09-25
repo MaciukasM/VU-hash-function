@@ -111,9 +111,14 @@ void PoVienaEilute(bool kitosHashFunkcijos)
 
     LaikoMatavimas l;
     double visasLaikas = 0;
+    double MD5viso = 0;
+    double SHA1viso = 0;
+    double SHA256viso = 0;
     string failas1 = "test/konstitucija.txt"; //is kur imsim faila
     string eilute;
     vector<string> hashai;
+
+    string tempHash; //kadangi paciu hashu nereikes, tai i cia tiesiog saugosim visus kitu funkciju hash'us (kuri vis perrasys kitu hash'u)
 
     ifstream in(failas1);
 
@@ -126,12 +131,28 @@ void PoVienaEilute(bool kitosHashFunkcijos)
         visasLaikas += l.elapsed();
         if(kitosHashFunkcijos)
         {
-            
+            l.reset();
+            tempHash = md5(eilute);
+            MD5viso += l.elapsed();
+
+            l.reset();
+            tempHash = sha256(eilute);
+            SHA256viso += l.elapsed();
+
+            l.reset();
+            tempHash = sha1(eilute);
+            SHA1viso += l.elapsed();
         }
     }
     in.close();
 
-    cout<<"'"<<failas1<<"' failo hash'avimas uztruko "<<visasLaikas<<" s."<<endl;
+    cout<<"'"<<failas1<<"' failo hash'avimas (mano funkcija) uztruko "<<visasLaikas<<" s."<<endl;
+    if(kitosHashFunkcijos)
+    {
+        cout<<"MD5 hash'avimas uztruko "<<MD5viso<<" s."<<endl;
+        cout<<"SHA256 hash'avimas uztruko "<<SHA256viso<<" s."<<endl;
+        cout<<"SHA1 hash'avimas uztruko "<<SHA1viso<<" s."<<endl;
+    }
 
     /* for(int i = 0; i<hashai.size()-1; i++) //jei norim hashus paziuret
     {

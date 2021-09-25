@@ -7,6 +7,10 @@
 #include <vector>
 #include <bitset>
 
+#include "hashFunkcijos/sha256.hpp"
+#include "hashFunkcijos/sha1.hpp"
+#include "hashFunkcijos/md5.hpp"
+
 using namespace std;
 
 void TestoPasirinkimas(int pasirinkimas);
