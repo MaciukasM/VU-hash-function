@@ -11,7 +11,7 @@ using namespace std;
 
 void TestoPasirinkimas(int pasirinkimas);
 void DviejuFailuLyginimas();
-void PoVienaEilute();
+void PoVienaEilute(bool kitosHashFunkcijos = false);
 void HashuPoruLyginimas();
 void PanasausFailoGeneravimas(string failas);
 void ProcentinisSkirtingumas();

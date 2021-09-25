@@ -6,9 +6,10 @@ void TestoPasirinkimas(int pasirinkimas)
 {
     if(pasirinkimas == 1) VartotojoIvedimas();
     if(pasirinkimas == 2) DviejuFailuLyginimas();
-    if(pasirinkimas == 3) PoVienaEilute();
+    if(pasirinkimas == 3) PoVienaEilute(false);
     if(pasirinkimas == 4) HashuPoruLyginimas();
     if(pasirinkimas == 5) ProcentinisSkirtingumas();
+    if(pasirinkimas == 6) PoVienaEilute(true);
 }
 
 void DviejuFailuLyginimas()
@@ -104,7 +105,7 @@ void DviejuFailuLyginimas()
     cout<<"------------------------------------------------------"<<endl;
 }
 
-void PoVienaEilute()
+void PoVienaEilute(bool kitosHashFunkcijos)
 {
     cout<<"\nHash'inamas failas 'konstitucija.txt po eilute...'\n"<<endl;
 
@@ -123,6 +124,10 @@ void PoVienaEilute()
         l.reset();
         hashai.push_back(DuomenuHashinimas(eilute));
         visasLaikas += l.elapsed();
+        if(kitosHashFunkcijos)
+        {
+            
+        }
     }
     in.close();
 
