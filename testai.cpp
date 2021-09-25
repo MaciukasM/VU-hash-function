@@ -207,6 +207,8 @@ void ProcentinisSkirtingumas()
         }
     }
 
+    int eiluciuSk = 0;
+
     string eilute1;
     string eilute2;
 
@@ -235,6 +237,8 @@ void ProcentinisSkirtingumas()
     for(int i = 0; i<naujiFailai.size(); i++)
     {
         cout<<"\nPradedamas darbas su failu '"<<naujiFailai[i]<<"'...\n"<<endl;
+
+        eiluciuSk = 0;
         
         ifstream in (naujiFailai[i]);
 
@@ -251,16 +255,16 @@ void ProcentinisSkirtingumas()
 
             for(int j = 0; j<64; j++)
             {
-                if(hashas1[0] != hashas2[0]) ++skirtingiHex;
+                if(hashas1[j] != hashas2[j]) ++skirtingiHex;
 
-                bitset<8> b1(hashas1[0]);
-                bitset<8> b2(hashas2[0]);
+                bitset<8> b1(hashas1[j]);
+                bitset<8> b2(hashas2[j]);
 
                 skirtingiBit += (b1 xor b2).count();
             }
 
-            procentaiHex = skirtingiHex / 64.0;
-            procentaiBit = skirtingiBit / 512.0;
+            procentaiHex = skirtingiHex / 64.0 * 100.0;
+            procentaiBit = skirtingiBit / 512.0 * 100.0;
 
             bitMin = min(bitMin, procentaiBit);
             hexMin = min(hexMin, procentaiHex);
@@ -270,8 +274,14 @@ void ProcentinisSkirtingumas()
 
             bitAvg += procentaiBit;
             hexAvg += procentaiHex;
+
+            ++eiluciuSk;
         }
         in.close();
+
+        bitAvg /= eiluciuSk;
+        hexAvg /= eiluciuSk;
+
         cout<<i+1<<"-ojo failo ("<<failas[i]<<") poru hashavim'o procentiniai 'skirtingumai': "<<endl;
         cout<<"\nSio failo bit min: "<<bitMin<<"%"<<endl;
         cout<<"Sio failo bit max: "<<bitMax<<"%"<<endl;
