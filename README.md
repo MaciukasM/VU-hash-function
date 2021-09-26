@@ -82,6 +82,14 @@ Antro failo hash'ai sutampa = true
 Siu failu hashai nesutampa = true
 ------------------------------------------------------
 ```
+If the user wishes to see the output of an empty input, the user needs to input "1", then "y" (to input data from a file) and lastly type in the directory of an empty .txt file (e.g. test/empty.txt):
+```shell
+1
+Ar duomenis imti is failo? (y/n): y
+Iveskite failo pavadinima (pvz. failas.txt): test/empty.txt
+hash'as: 3cd5bf8a71c0517b5e79fd35813a1e00285fcc3b77d8fcc1b50ce3764ec97afb
+hash'o ilgis: 64
+```
 ### 2. Benchmark (time test)
 **Task**: 
 
@@ -181,3 +189,10 @@ SHA1 hash'avimas uztruko 0.0010647 s.
 -O2 optimization was used for this test.
 
 It seems that, on average, MD5 is the fastest hash function (0.6 ms). SHA1 and SHA256 come next, somewhere around 1.0 and 1.1 ms, respectively. My function is not far behind them, though - the time, on average, is around 1.2-1.3 ms.
+
+## Conlusion
+The hash is, more or less, capable of passing the aforementioned requirements.
+1. It accepts a string of any length as an input and the output is always 256-bit long.
+2. It is deterministic (i.e. the same input always generates the same output).
+3. It is reasonably fast and compares well with other popular hash functions (see [test5](#5.-Comparing-to-other-functions))
+4. 
