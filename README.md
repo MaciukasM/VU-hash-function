@@ -1,7 +1,21 @@
 # Hash-function
 This is a repository for the first assignment of VU Blockchain Technologies course (hash function).
 
+Contents:
+* [Getting started](#getting-started)
+* [User's input](#Users-input)
+* [How it (the function) works](#How-it-the-function-works)
+* [Requirements for the hash](#requirements-for-the-hash)
+* [Hash analysis](#hash-analysis)
+  * [Test with basic files](#1-basic-files)
+  * [Benchmark (time test)](#2-benchmark-time-test)
+  * [Collision test](#3-collision-test)
+  * [Hash difference in percentage](#4-hash-difference-in-percentage)
+  * [Comparing to other functions](#5-comparing-to-other-functions)
+* [Conlusion](#conclusion)
+
 ## Getting started
+
 First, you need to compile the files:
 ```shell
 g++ -o program main.cpp funkcijos.cpp testai.cpp hashFunkcijos/sha256.cpp hashFunkcijos/sha1.cpp hashFunkcijos/md5.cpp -O2
@@ -14,6 +28,43 @@ After that, you can simply run your program:
 ```
 .\program.exe 
 ```
+
+## User's input
+
+After running the program, the user will be greeted with the following options:
+```shell
+PS C:\VU-hash-function> .\program.exe
+
+Iveskite savo pasirinkima ivede skaiciu:                                                                  //enter your choice
+
+1 - Duomenu ivedimas ir hash'inimas                                                                       //Basic input from files or by hand (user's choice)
+2 - Paprastu failu hash'inimas ir lyginimas                                                               //Testing the function with basic files
+3 - konstitucija.txt hash'avimo matavimas                                                                 //Benchmark/time test
+4 - Sugeneruotu poru hash'inimas ir lyginimas (atsparumas kolizijoms)                                     //Collision test
+5 - Hash'u procentinio skirtingumo tikrinimas                                                             //Hash difference in percentage
+6 - Spartos lyginimas su SHA-256, SHA-1 ir MD-5 funkcijomis (tam naudojama 3-ioji uzduotis)               //Comparing to other functions
+```
+If the user wishes to hash their input, the user needs to input "1":
+```shell
+1
+Ar duomenis imti is failo? (y/n):                                                                         //Should the input be taken from a file? y/n
+```
+If the answer is 'y', then the user will be able to type in the directory of the file, after which, the function will output the hash and its length.
+
+Alternatively, if the answer is 'n', then the user will be able to type in their input by hand, after which, the function will output the hash and its length.
+
+
+Other options (i.e. the tests, options 2-6) are showcased later (see [Test #1](#1-basic-files), [Test #2](#2-benchmark-time-test), [Test #3](#3-collision-test), [Test #4](#4-hash-difference-in-percentage), [Test #5](#5-comparing-to-other-functions)).
+
+## How it (the function) works
+
+1. The function takes the first character of the input and proceeds to convert it to an ascii value, which it then multiplies with our starting number/seed. After some additions, the bits of that number are shifted to the left and the whole number is raised to the power of three.
+
+This operation #1 is then repeated for every single character of the input.
+
+2. The number that we got is now multiplied again. From there, the function takes some of the digits from our number and add/multiply them together and assign this new number to a new variable. This variable is then divided in a way that we can get an ascii value which is converted to 0-9 + a-f and added to our hash.
+
+The function repeats this operation #2 63 more times until we get 64 characters in our hash.
 
 ## Requirements for the hash
 1. Input's length is not fixed;
@@ -167,6 +218,9 @@ Hex max: 100%
 Bit avg: 32.9982%
 Hex avg: 93.7406%
 ```
+The hex difference on average is very satisfactory - 93.7% is a good score.
+
+The bit difference, meanwhile, isn't as impressive - 33% somewhat passes the requirement, although, ideally it should be somewhere closer to 50%.
 
 ### 5. Comparing to other functions
 **Task**:
@@ -192,7 +246,12 @@ It seems that, on average, MD5 is the fastest hash function (0.6 ms). SHA1 and S
 
 ## Conlusion
 The hash is, more or less, capable of passing the aforementioned requirements.
-1. It accepts a string of any length as an input and the output is always 256-bit long.
+1. It accepts a string of any length as an input and the output is always 256-bit long. Also, you can't find out the input just by looking at the output.
 2. It is deterministic (i.e. the same input always generates the same output).
-3. It is reasonably fast and compares well with other popular hash functions (see [test5](#5.-Comparing-to-other-functions))
-4. 
+3. It is reasonably fast and compares well with other popular hash functions (see [test #5](#5-Comparing-to-other-functions)). The time complexity of this function is linear (O(n)).
+4. The hash seems to be collision resistant as well (see [test #3](#3-Collision-test)).
+5. Lastly, the function somewhat satisfies the 'avalanche effect' requirement (see [test #4](#4-Hash-difference-in-percentage)).
+
+All in all, it is an effective function that is both collision resistant and showcases some properties of the 'avalanche effect'. In terms of speed, it compares pretty well with other functions, although, it goes without saying that these hash functions are way more reliable in terms of security.
+
+Probably the main way of upgrading this function would be to improve the average bit difference between two hashes.
