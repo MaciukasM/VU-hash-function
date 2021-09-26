@@ -12,7 +12,7 @@ Contents:
   * [Collision test](#3-collision-test)
   * [Hash difference in percentage](#4-hash-difference-in-percentage)
   * [Comparing to other functions](#5-comparing-to-other-functions)
-* [Conlusion](#conclusion)
+* [Conclusion](#conclusion)
 
 ## Getting started
 
