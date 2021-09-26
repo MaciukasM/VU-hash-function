@@ -35,14 +35,14 @@ After running the program, the user will be greeted with the following options:
 ```shell
 PS C:\VU-hash-function> .\program.exe
 
-Iveskite savo pasirinkima ivede skaiciu:                                                                  //enter your choice
+Iveskite savo pasirinkima ivede skaiciu:                                                    //enter your choice
 
-1 - Duomenu ivedimas ir hash'inimas                                                                       //Basic input from files or by hand (user's choice)
-2 - Paprastu failu hash'inimas ir lyginimas                                                               //Testing the function with basic files
-3 - konstitucija.txt hash'avimo matavimas                                                                 //Benchmark/time test
-4 - Sugeneruotu poru hash'inimas ir lyginimas (atsparumas kolizijoms)                                     //Collision test
-5 - Hash'u procentinio skirtingumo tikrinimas                                                             //Hash difference in percentage
-6 - Spartos lyginimas su SHA-256, SHA-1 ir MD-5 funkcijomis (tam naudojama 3-ioji uzduotis)               //Comparing to other functions
+1 - Duomenu ivedimas ir hash'inimas                                                         //Basic input from files or by hand (user's choice)
+2 - Paprastu failu hash'inimas ir lyginimas                                                 //Testing the function with basic files
+3 - konstitucija.txt hash'avimo matavimas                                                   //Benchmark/time test
+4 - Sugeneruotu poru hash'inimas ir lyginimas (atsparumas kolizijoms)                       //Collision test
+5 - Hash'u procentinio skirtingumo tikrinimas                                               //Hash difference in percentage
+6 - Spartos lyginimas su SHA-256, SHA-1 ir MD-5 funkcijomis (tam naudojama 3-ioji uzduotis) //Comparing to other functions
 ```
 If the user wishes to hash their input, the user needs to input "1":
 ```shell
