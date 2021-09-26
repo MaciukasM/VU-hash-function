@@ -242,7 +242,7 @@ SHA1 hash'avimas uztruko 0.0010647 s.
 ```
 -O2 optimization was used for this test.
 
-It seems that, on average, MD5 is the fastest hash function (0.6 ms). SHA1 and SHA256 come next, somewhere around 1.0 and 1.1 ms, respectively. My function is not far behind them, though - the time, on average, is around 1.2-1.3 ms.
+It seems that, on average, MD5 is the fastest hash function (0.6 ms). SHA1 and SHA256 come next; SHA256 was very consistant and averaged somewhere 1.17 ms, while SHA1 varied greatly, from 1-1.3 ms (its average was around 1.08 ms). My function is not far behind them, though - the time, on average, is around 1.24 ms.
 
 ## Conclusion
 The hash is, more or less, capable of passing the aforementioned requirements.
