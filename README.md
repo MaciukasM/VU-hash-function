@@ -47,7 +47,7 @@ Iveskite savo pasirinkima ivede skaiciu:                                        
 If the user wishes to hash their input, the user needs to input "1":
 ```shell
 1
-Ar duomenis imti is failo? (y/n):                                                                         //Should the input be taken from a file? y/n
+Ar duomenis imti is failo? (y/n):                            //Should the input be taken from a file? y/n
 ```
 If the answer is 'y', then the user will be able to type in the directory of the file, after which, the function will output the hash and its length.
 
