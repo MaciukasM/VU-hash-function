@@ -18,7 +18,7 @@ void DviejuFailuLyginimas();
 void PoVienaEilute(bool kitosHashFunkcijos = false);
 void HashuPoruLyginimas();
 void PanasausFailoGeneravimas(string failas);
-void ProcentinisSkirtingumas();
+void ProcentinisSkirtingumas(int f = 0);
 //void FailoGeneravimas(int ilgis, bool simbolioSkirtumas);
 
 #endif

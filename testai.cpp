@@ -9,7 +9,14 @@ void TestoPasirinkimas(int pasirinkimas)
     if(pasirinkimas == 3) PoVienaEilute(false);
     if(pasirinkimas == 4) HashuPoruLyginimas();
     if(pasirinkimas == 5) ProcentinisSkirtingumas();
-    if(pasirinkimas == 6) PoVienaEilute(true);
+    if(pasirinkimas == 6) 
+    {
+        PoVienaEilute(true);
+        ProcentinisSkirtingumas(0);
+        ProcentinisSkirtingumas(1);
+        ProcentinisSkirtingumas(2);
+        ProcentinisSkirtingumas(3);
+    }
 }
 
 void DviejuFailuLyginimas()
@@ -107,57 +114,79 @@ void DviejuFailuLyginimas()
 
 void PoVienaEilute(bool kitosHashFunkcijos)
 {
-    cout<<"\nHash'inamas failas 'konstitucija.txt po eilute...'\n"<<endl;
+    /* double MD5test = 0;
+    double SHA1test = 0;
+    double SHA256test = 0;
+    double Hashtest = 0;
+    for(int i = 0; i<100; i++)
+    { */
+        cout<<"\nHash'inamas failas 'konstitucija.txt po eilute...'\n"<<endl;
 
-    LaikoMatavimas l;
-    double visasLaikas = 0;
-    double MD5viso = 0;
-    double SHA1viso = 0;
-    double SHA256viso = 0;
-    string failas1 = "test/konstitucija.txt"; //is kur imsim faila
-    string eilute;
-    vector<string> hashai;
+        LaikoMatavimas l;
+        double visasLaikas = 0;
+        double MD5viso = 0;
+        double SHA1viso = 0;
+        double SHA256viso = 0;
+        string failas1 = "test/konstitucija.txt"; //is kur imsim faila
+        string eilute;
+        vector<string> hashai;
 
-    string tempHash; //kadangi paciu hashu nereikes, tai i cia tiesiog saugosim visus kitu funkciju hash'us (kuri vis perrasys kitu hash'u)
+        string tempHash; //kadangi paciu hashu nereikes, tai i cia tiesiog saugosim visus kitu funkciju hash'us (kuri vis perrasys kitu hash'u)
 
-    ifstream in(failas1);
+        ifstream in(failas1);
 
-    while(in)
-    {
-        getline(in, eilute);
+        while(in)
+        {
+            getline(in, eilute);
 
-        l.reset();
-        hashai.push_back(DuomenuHashinimas(eilute));
-        visasLaikas += l.elapsed();
+            l.reset();
+            hashai.push_back(DuomenuHashinimas(eilute));
+            visasLaikas += l.elapsed();
+            if(kitosHashFunkcijos)
+            {
+                l.reset();
+                tempHash = md5(eilute);
+                MD5viso += l.elapsed();
+
+                l.reset();
+                tempHash = sha256(eilute);
+                SHA256viso += l.elapsed();
+
+                l.reset();
+                tempHash = sha1(eilute);
+                SHA1viso += l.elapsed();
+            }
+        }
+        in.close();
+
+        cout<<"'"<<failas1<<"' failo hash'avimas (mano funkcija) uztruko "<<visasLaikas<<" s."<<endl;
         if(kitosHashFunkcijos)
         {
-            l.reset();
-            tempHash = md5(eilute);
-            MD5viso += l.elapsed();
-
-            l.reset();
-            tempHash = sha256(eilute);
-            SHA256viso += l.elapsed();
-
-            l.reset();
-            tempHash = sha1(eilute);
-            SHA1viso += l.elapsed();
+            cout<<"MD5 hash'avimas uztruko "<<MD5viso<<" s."<<endl;
+            cout<<"SHA256 hash'avimas uztruko "<<SHA256viso<<" s."<<endl;
+            cout<<"SHA1 hash'avimas uztruko "<<SHA1viso<<" s."<<endl;
         }
-    }
-    in.close();
 
-    cout<<"'"<<failas1<<"' failo hash'avimas (mano funkcija) uztruko "<<visasLaikas<<" s."<<endl;
-    if(kitosHashFunkcijos)
-    {
-        cout<<"MD5 hash'avimas uztruko "<<MD5viso<<" s."<<endl;
-        cout<<"SHA256 hash'avimas uztruko "<<SHA256viso<<" s."<<endl;
-        cout<<"SHA1 hash'avimas uztruko "<<SHA1viso<<" s."<<endl;
-    }
+        /* for(int i = 0; i<hashai.size()-1; i++) //jei norim hashus paziuret
+        {
+            cout<<i<<" hash'as: "<<hashai[i]<<endl;
+        } */
 
-    /* for(int i = 0; i<hashai.size()-1; i++) //jei norim hashus paziuret
-    {
-        cout<<i<<" hash'as: "<<hashai[i]<<endl;
-    } */
+    /*     MD5test += MD5viso;
+        SHA1test += SHA1viso;
+        SHA256test += SHA256viso;
+        Hashtest += visasLaikas;
+    }
+    MD5test /= 100;
+    SHA1test /= 100;
+    SHA256test /= 100;
+    Hashtest /= 100;
+    cout<<"\n------------------------------------------------------\n"<<endl;
+    cout<<"Vidutiniai laikai: "<<endl;
+    cout<<"MD5: "<<MD5test<<endl;
+    cout<<"SHA256: "<<SHA256test<<endl;
+    cout<<"SHA1: "<<SHA1test<<endl;
+    cout<<"Mano funkcija: "<<Hashtest<<endl; */
 }
 
 void HashuPoruLyginimas()
@@ -212,7 +241,7 @@ void PanasausFailoGeneravimas(string failas) //procentiniam skirtingumui failu g
     }
 }
 
-void ProcentinisSkirtingumas()
+void ProcentinisSkirtingumas(int f)
 {
     string ats;
     vector<string> failas = { "test/poros10.txt", "test/poros100.txt", "test/poros500.txt", "test/poros1000.txt" };
@@ -220,7 +249,7 @@ void ProcentinisSkirtingumas()
 
     while(ats!="y" && ats!="n")
     {
-        cout<<"Ar sugeneruoti failus testavimui (tam bus sukurti nauji modifikuoti failai is koliziju testavimo)? (y/n): ";
+        cout<<"\nAr sugeneruoti failus testavimui (tam bus sukurti nauji modifikuoti failai is koliziju testavimo)? (y/n): ";
         cin>>ats;
         if(ats!="y" && ats!="n") cout<<"\nIveskite atsakyma is naujo.\n"<<endl;
     }
@@ -260,6 +289,11 @@ void ProcentinisSkirtingumas()
     float hexAvgViso = 0;
     float hexMaxViso = 0;
 
+    if(f == 0) cout<<"\nDirbama su mano funkcija...\n"<<endl;
+    if(f == 1) cout<<"\nDirbama su MD5 funkcija...\n"<<endl;
+    if(f == 2) cout<<"\nDirbama su SHA1 funkcija...\n"<<endl;
+    if(f == 3) cout<<"\nDirbama su SHA256 funkcija...\n"<<endl;
+
     for(int i = 0; i<naujiFailai.size(); i++)
     {
         cout<<"\nPradedamas darbas su failu '"<<naujiFailai[i]<<"'...\n"<<endl;
@@ -271,11 +305,27 @@ void ProcentinisSkirtingumas()
         while(in)
         {
             getline(in, eilute1);
-            hashas1 = DuomenuHashinimas(eilute1);
-
             getline(in, eilute2);
-            hashas2 = DuomenuHashinimas(eilute2);
-
+            if(f==0) 
+            {
+                hashas1 = DuomenuHashinimas(eilute1);
+                hashas2 = DuomenuHashinimas(eilute2);
+            }
+            else if(f==1)
+            {
+                hashas1 = md5(eilute1);
+                hashas2 = md5(eilute2);
+            }
+            else if(f==2)
+            {
+                hashas1 = sha1(eilute1);
+                hashas2 = sha1(eilute2);
+            }
+            else if(f==3)
+            {
+                hashas1 = sha256(eilute1);
+                hashas2 = sha256(eilute2);
+            }
             skirtingiHex = 0;
             skirtingiBit = 0;
 
