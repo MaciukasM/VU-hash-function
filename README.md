@@ -220,14 +220,16 @@ Hex avg: 93.7406%
 ```
 The hex difference on average is very satisfactory - 93.7% is a good score.
 
-The bit difference, meanwhile, isn't as impressive - 33% somewhat passes the requirement, although, ideally it should be somewhere closer to 50%.
+The bit difference, meanwhile, isn't as impressive - 33% somewhat passes the requirement, although, ideally it should be somewhere closer to 50%. However, as we'll see soon this score is very respectable when comparing to other functions.
 
 ### 5. Comparing to other functions
 **Task**:
 
 "Pabandykite kaip įmanoma objektyviau palyginti Jūsų Hash funkcijos spartą su MD5, SHA-1, SHA-256 ar kita gerai žinoma hash funkcija."
 
-For this comparison, I use the 2-nd test (benchmark/time test).
+For this comparison, I use the 2-nd test (benchmark/time test) and the 4-th test (Hash difference in percentage test).
+
+#### Time tests
 
 Each function hashes every single line of 'konstitucija.txt' file.
 
@@ -244,6 +246,62 @@ SHA1 hash'avimas uztruko 0.0010647 s.
 
 It seems that, on average, MD5 is the fastest hash function (0.6 ms). SHA1 and SHA256 come next; SHA256 was very consistant and averaged somewhere 1.11 ms, while SHA1, for some reason, sometimes varied greatly, from 0.9-1.2 ms (its average was around 1 ms). My function is not far behind them, though - the time, on average, is around 1.2 ms.
 
+#### Hash difference in percentage in different functions
+
+Each function runs the 4-th test.
+
+My function's results for comparison (nothing new here, same as in the 4-th test):
+```shell
+Galutiniai rezultatai:
+
+Bit min: 23.8281%
+Bit max: 42.9688%
+Hex min: 79.6875%
+Hex max: 100%
+
+Bit avg: 32.9995%
+Hex avg: 93.7405%
+```
+Now onto the more interesting part.
+
+MD5 results:
+```shell
+Galutiniai rezultatai:
+
+Bit min: 18.5547%
+Bit max: 41.6016%
+Hex min: 59.375%
+Hex max: 92.1875%
+
+Bit avg: 27.6752%
+Hex avg: 76.9261%
+```
+SHA1 results:
+```shell
+Galutiniai rezultatai:
+
+Bit min: 16.4062%
+Bit max: 38.8672%
+Hex min: 51.5625%
+Hex max: 92.1875%
+
+Bit avg: 29.9983%
+Hex avg: 80.5144%
+```
+SHA256 results:
+```shell
+Galutiniai rezultatai:
+
+Bit min: 22.6562%
+Bit max: 41.9922%
+Hex min: 78.125%
+Hex max: 100%
+
+Bit avg: 33.016%
+Hex avg: 93.7537%
+```
+Well, we can see that our function compares surprisingly well, almost exacly matching SHA256, which did the best - around 93.75% difference in hex and 33% in binary. SHA1 (80.5% difference in hex and 30% in binary) and MD5 (77% difference in hex and 27.67% in binary) take the 3rd and 4th places in this test, respectively.
+
 ## Conclusion
 The hash is, more or less, capable of passing the aforementioned requirements.
 1. It accepts a string of any length as an input and the output is always 256-bit long. Also, you can't find out the input just by looking at the output.
@@ -252,6 +310,6 @@ The hash is, more or less, capable of passing the aforementioned requirements.
 4. The hash seems to be collision resistant as well (see [test #3](#3-Collision-test)).
 5. Lastly, the function somewhat satisfies the 'avalanche effect' requirement (see [test #4](#4-Hash-difference-in-percentage)).
 
-All in all, it is an effective function that is both collision resistant and showcases some properties of the 'avalanche effect'. In terms of speed, it compares pretty well with other functions, although, it goes without saying that these hash functions are way more reliable in terms of security.
+All in all, it is an effective function that is both collision resistant and showcases some properties of the 'avalanche effect'. In terms of speed, it compares pretty well with other functions. The same can be said in terms of hash difference in hex/binary, as the only function to beat mine was SHA256 (and even then it was close). However, I think it goes without saying that trusting my function over other popular functions would be quite stupid, as these hash functions are still surely more reliable.
 
-Probably the main way of upgrading this function would be to improve the average bit difference between two hashes.
+If I had to say, the main way of upgrading this function would be to improve the average bit difference between two hashes.
